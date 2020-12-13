@@ -52,7 +52,7 @@ namespace WebAPIServer.Controllers
             if (user == null)
                 return BadRequest(new { message = "Username or password is incorrect" });
 
-            var claims = new[] { new Claim(ClaimTypes.Name, user.UserName), new Claim(ClaimTypes.Role, user.UserType.ToString()) };
+            var claims = new[] { new Claim(ClaimTypes.Name, user.UserName), new Claim(ClaimTypes.Role, user.UserType) };
             var credentials = new SigningCredentials(SecurityKey, SecurityAlgorithms.HmacSha256);
             var token = new JwtSecurityToken("WebAPIServer", "WebAPIClients", claims, expires: DateTime.Now.AddDays(1), signingCredentials: credentials);
             var tokenString = JwtTokenHandler.WriteToken(token);
